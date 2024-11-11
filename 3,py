@@ -1,0 +1,41 @@
+import numpy as np
+from scipy.optimize import linprog
+
+# Características de cada crudo (azufre, densidad, precio)
+# Ejemplo: [porcentaje azufre, densidad, precio por TM]
+crudos = np.array([
+    [0.45, 91, 35000],  # Crudo 1
+    [0.40, 95, 31000],  # Crudo 2
+    [0.38, 89, 39000],  # Crudo 3
+    [0.41, 92, 34000]   # Crudo 4
+])
+
+# Restricciones de porcentaje de azufre y densidad para la mezcla
+azufre_deseado = 0.40  # 40%
+densidad_deseada = 91  # 91%
+
+# Vector de precios (costos a minimizar)
+precios = crudos[:, 2]
+
+# Definición de restricciones
+# Ecuación para el porcentaje de azufre
+azufre = crudos[:, 0]
+restriccion_azufre = azufre - azufre_deseado
+
+# Ecuación para la densidad
+densidad = crudos[:, 1]
+restriccion_densidad = densidad - densidad_deseada
+
+# Agregamos la restricción de que las cantidades sumen 1 (100%)
+# Esto garantiza que estamos trabajando con una mezcla que sume 100%
+A_eq = np.vstack([restriccion_azufre, restriccion_densidad, np.ones(4)])
+b_eq = np.array([0, 0, 1])
+
+# Realizamos la optimización
+resultado = linprog(c=precios, A_eq=A_eq, b_eq=b_eq, bounds=(0, 1), method='highs')
+
+if resultado.success:
+    print("Costo mínimo de la mezcla:", resultado.fun)
+    print("Proporciones de cada crudo en la mezcla:", resultado.x)
+else:
+    print("No se pudo encontrar una solución óptima.")
