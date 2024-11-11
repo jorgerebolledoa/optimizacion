@@ -13,7 +13,7 @@ A = [
 b = [-16, 11, 20, 0]
 
 # Llamada a linprog para resolver el problema
-result = linprog(c, A_ub=A, b_ub=b, method="highs")
+result = linprog(c, A_ub=A, b_ub=b, method="simplex")
 
 # Resultados
 if result.success:

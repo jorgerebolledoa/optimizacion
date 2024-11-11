@@ -3,7 +3,7 @@ from scipy.optimize import linprog
 
 # Características de cada crudo (azufre, densidad, precio)
 # Ejemplo: [porcentaje azufre, densidad, precio por TM]
-crudos = np.array([
+datos = np.array([
     [0.45, 91, 35000],  # Crudo 1
     [0.40, 95, 31000],  # Crudo 2
     [0.38, 89, 39000],  # Crudo 3
@@ -15,15 +15,15 @@ azufre_deseado = 0.40  # 40%
 densidad_deseada = 91  # 91%
 
 # Vector de precios (costos a minimizar)
-precios = crudos[:, 2]
+precios = datos[:, 2]
 
 # Definición de restricciones
 # Ecuación para el porcentaje de azufre
-azufre = crudos[:, 0]
+azufre = datos[:, 0]
 restriccion_azufre = azufre - azufre_deseado
 
 # Ecuación para la densidad
-densidad = crudos[:, 1]
+densidad = datos[:, 1]
 restriccion_densidad = densidad - densidad_deseada
 
 # Agregamos la restricción de que las cantidades sumen 1 (100%)

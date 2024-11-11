@@ -15,7 +15,7 @@ A = [
 b = [53, 80]
 
 # Resolvemos el problema usando el método simplex
-res = linprog(c, A_ub=A, b_ub=b, bounds=(0, None), method='highs')
+res = linprog(c, A_ub=A, b_ub=b, bounds=(0, None), method='simplex')
 
 # Espacio factible y puntos en el gráfico
 x_vals = np.linspace(0, 60, 200)
