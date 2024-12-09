@@ -32,7 +32,7 @@ A_eq = np.vstack([restriccion_azufre, restriccion_densidad, np.ones(4)])
 b_eq = np.array([0, 0, 1])
 
 # Realizamos la optimización
-resultado = linprog(c=precios, A_eq=A_eq, b_eq=b_eq, bounds=(0, 1), method='highs')
+resultado = linprog(c=precios, A_eq=A_eq, b_eq=b_eq, bounds=(0, 1), method='simplex')
 
 if resultado.success:
     print("Costo mínimo de la mezcla:", resultado.fun)
